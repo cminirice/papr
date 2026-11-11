@@ -1,0 +1,55 @@
+{
+  "status": "draft",
+  "source": "docs/background/四年级数学 · 知识点与模板维护设计.md",
+  "catalog": {
+    "code": "GRADE4_UPPER_CANDIDATE_V1",
+    "name": "四年级数学上册候选目录",
+    "verification_status": "provisional",
+    "theme_code": "INTEGER_MULTIPLICATION",
+    "theme_name": "多位整数乘法"
+  },
+  "knowledge": {
+    "code": "O002",
+    "name": "多位数乘两位数笔算",
+    "revision": 1,
+    "definition": "按位计算并正确合并部分积。",
+    "boundary": "本模板仅覆盖三位数乘两位数，不代表口算、估算、应用、纠错或挑战训练。"
+  },
+  "objective_code": "O002_COLUMN_MULTIPLY_V1",
+  "template_code": "MUL_VERTICAL",
+  "generator_key": "integer_multiplication_v1",
+  "generator_version": "1.0.0",
+  "question_type": "answer",
+  "render_mode": "vertical",
+  "profiles": [
+    {
+      "difficulty": "basic",
+      "a_min": 100,
+      "a_max": 299,
+      "b_min": 11,
+      "b_max": 19,
+      "allow_zero": false,
+      "max_carry_events": 2,
+      "max_per_paper": 12,
+      "layout": {"questions_per_row": 2, "solutions_per_row": 1, "answer_space_mm": 35, "keep_together": true, "diagram_size_mm": null}
+    },
+    {
+      "difficulty": "standard",
+      "a_min": 100,
+      "a_max": 999,
+      "b_min": 11,
+      "b_max": 99,
+      "allow_zero": true,
+      "max_carry_events": 9,
+      "max_per_paper": 12,
+      "layout": {"questions_per_row": 2, "solutions_per_row": 1, "answer_space_mm": 35, "keep_together": true, "diagram_size_mm": null}
+    }
+  ],
+  "fixed_cases": [
+    {"difficulty": "basic", "a": 123, "b": 12, "expected": "1476"},
+    {"difficulty": "standard", "a": 100, "b": 11, "expected": "1100"},
+    {"difficulty": "standard", "a": 109, "b": 19, "expected": "2071"},
+    {"difficulty": "standard", "a": 308, "b": 26, "expected": "8008"},
+    {"difficulty": "standard", "a": 999, "b": 99, "expected": "98901"}
+  ]
+}

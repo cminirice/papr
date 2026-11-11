@@ -1,0 +1,6452 @@
+{
+  "$defs": {
+    "AdminJobDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "job": {
+          "$ref": "#/$defs/AdminJobSummary"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/$defs/MultiplicationQuestion"
+          },
+          "title": "Questions",
+          "type": "array"
+        },
+        "validation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValidationView"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "job",
+        "questions",
+        "validation"
+      ],
+      "title": "AdminJobDetail",
+      "type": "object"
+    },
+    "AdminJobList": {
+      "additionalProperties": false,
+      "properties": {
+        "date_from": {
+          "format": "date",
+          "title": "Date From",
+          "type": "string"
+        },
+        "date_to": {
+          "format": "date",
+          "title": "Date To",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/AdminJobSummary"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Cursor"
+        },
+        "has_more": {
+          "title": "Has More",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "date_from",
+        "date_to",
+        "items",
+        "next_cursor",
+        "has_more"
+      ],
+      "title": "AdminJobList",
+      "type": "object"
+    },
+    "AdminJobSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "paper_generate",
+            "template_validate",
+            "template_preview"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "succeeded",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "phase": {
+          "enum": [
+            "queued",
+            "generating",
+            "rendering",
+            "saving",
+            "done"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "attempt": {
+          "title": "Attempt",
+          "type": "integer"
+        },
+        "max_attempts": {
+          "title": "Max Attempts",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Started At"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Finished At"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Code"
+        },
+        "error_message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Message"
+        },
+        "template_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Template Id"
+        },
+        "template_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Template Name"
+        },
+        "template_version_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Template Version Id"
+        },
+        "version_no": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Version No"
+        },
+        "validation_run_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Validation Run Id"
+        },
+        "validation_status": {
+          "anyOf": [
+            {
+              "enum": [
+                "queued",
+                "running",
+                "passed",
+                "failed",
+                "stale"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Validation Status"
+        },
+        "paper_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Paper Id"
+        },
+        "paper_status": {
+          "anyOf": [
+            {
+              "enum": [
+                "active",
+                "withdrawn"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Paper Status"
+        },
+        "difficulty": {
+          "anyOf": [
+            {
+              "enum": [
+                "basic",
+                "standard",
+                "challenge"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Difficulty"
+        },
+        "total_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Total Count"
+        },
+        "theme_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Theme Name"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "status",
+        "phase",
+        "attempt",
+        "max_attempts",
+        "created_at",
+        "started_at",
+        "finished_at",
+        "error_code",
+        "error_message",
+        "template_id",
+        "template_name",
+        "template_version_id",
+        "version_no",
+        "validation_run_id",
+        "validation_status",
+        "paper_id",
+        "paper_status",
+        "difficulty",
+        "total_count",
+        "theme_name"
+      ],
+      "title": "AdminJobSummary",
+      "type": "object"
+    },
+    "AdminLogin": {
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "maxLength": 64,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_.-]+$",
+          "title": "Username",
+          "type": "string"
+        },
+        "password": {
+          "format": "password",
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Password",
+          "type": "string",
+          "writeOnly": true
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ],
+      "title": "AdminLogin",
+      "type": "object"
+    },
+    "AdminOverview": {
+      "additionalProperties": false,
+      "properties": {
+        "usage": {
+          "$ref": "#/$defs/UsageCounts",
+          "default": {
+            "preview": 0,
+            "print_intent": 0
+          }
+        },
+        "date_from": {
+          "format": "date",
+          "title": "Date From",
+          "type": "string"
+        },
+        "date_to": {
+          "format": "date",
+          "title": "Date To",
+          "type": "string"
+        },
+        "as_of": {
+          "title": "As Of",
+          "type": "string"
+        },
+        "totals": {
+          "$ref": "#/$defs/GenerationCounts"
+        },
+        "daily": {
+          "items": {
+            "$ref": "#/$defs/DailyGenerationCounts"
+          },
+          "title": "Daily",
+          "type": "array"
+        },
+        "generation_queue": {
+          "$ref": "#/$defs/QueueCounts"
+        },
+        "validation_queue": {
+          "$ref": "#/$defs/QueueCounts"
+        }
+      },
+      "required": [
+        "date_from",
+        "date_to",
+        "as_of",
+        "totals",
+        "daily",
+        "generation_queue",
+        "validation_queue"
+      ],
+      "title": "AdminOverview",
+      "type": "object"
+    },
+    "AdminPaperDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "active",
+          "enum": [
+            "active",
+            "withdrawn"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "notices": {
+          "items": {
+            "$ref": "#/$defs/NoticeView"
+          },
+          "title": "Notices",
+          "type": "array"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "total_count": {
+          "title": "Total Count",
+          "type": "integer"
+        },
+        "catalog_name": {
+          "title": "Catalog Name",
+          "type": "string"
+        },
+        "theme_name": {
+          "title": "Theme Name",
+          "type": "string"
+        },
+        "question_type_counts": {
+          "$ref": "#/$defs/QuestionCounts"
+        },
+        "generated_at": {
+          "title": "Generated At",
+          "type": "string"
+        },
+        "files": {
+          "items": {
+            "$ref": "#/$defs/PaperFile"
+          },
+          "title": "Files",
+          "type": "array"
+        },
+        "owner_user_id": {
+          "format": "uuid",
+          "title": "Owner User Id",
+          "type": "string"
+        },
+        "job_id": {
+          "format": "uuid",
+          "title": "Job Id",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/$defs/MultiplicationQuestion"
+          },
+          "title": "Questions",
+          "type": "array"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/SourceVersion"
+          },
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "difficulty",
+        "total_count",
+        "catalog_name",
+        "theme_name",
+        "question_type_counts",
+        "generated_at",
+        "files",
+        "owner_user_id",
+        "job_id",
+        "lock_version",
+        "questions",
+        "sources"
+      ],
+      "title": "AdminPaperDetail",
+      "type": "object"
+    },
+    "AdminPaperList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/AdminPaperSummary"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Cursor"
+        },
+        "has_more": {
+          "title": "Has More",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "items",
+        "next_cursor",
+        "has_more"
+      ],
+      "title": "AdminPaperList",
+      "type": "object"
+    },
+    "AdminPaperSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "active",
+          "enum": [
+            "active",
+            "withdrawn"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "notices": {
+          "items": {
+            "$ref": "#/$defs/NoticeView"
+          },
+          "title": "Notices",
+          "type": "array"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "total_count": {
+          "title": "Total Count",
+          "type": "integer"
+        },
+        "catalog_name": {
+          "title": "Catalog Name",
+          "type": "string"
+        },
+        "theme_name": {
+          "title": "Theme Name",
+          "type": "string"
+        },
+        "question_type_counts": {
+          "$ref": "#/$defs/QuestionCounts"
+        },
+        "generated_at": {
+          "title": "Generated At",
+          "type": "string"
+        },
+        "files": {
+          "items": {
+            "$ref": "#/$defs/PaperFile"
+          },
+          "title": "Files",
+          "type": "array"
+        },
+        "owner_user_id": {
+          "format": "uuid",
+          "title": "Owner User Id",
+          "type": "string"
+        },
+        "job_id": {
+          "format": "uuid",
+          "title": "Job Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "difficulty",
+        "total_count",
+        "catalog_name",
+        "theme_name",
+        "question_type_counts",
+        "generated_at",
+        "files",
+        "owner_user_id",
+        "job_id"
+      ],
+      "title": "AdminPaperSummary",
+      "type": "object"
+    },
+    "AdminSessionCreated": {
+      "additionalProperties": false,
+      "properties": {
+        "admin_id": {
+          "format": "uuid",
+          "title": "Admin Id",
+          "type": "string"
+        },
+        "expires_at": {
+          "title": "Expires At",
+          "type": "string"
+        },
+        "server_now": {
+          "title": "Server Now",
+          "type": "string"
+        },
+        "csrf_token": {
+          "title": "Csrf Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "admin_id",
+        "expires_at",
+        "server_now",
+        "csrf_token"
+      ],
+      "title": "AdminSessionCreated",
+      "type": "object"
+    },
+    "AdminSessionView": {
+      "additionalProperties": false,
+      "properties": {
+        "admin_id": {
+          "format": "uuid",
+          "title": "Admin Id",
+          "type": "string"
+        },
+        "expires_at": {
+          "title": "Expires At",
+          "type": "string"
+        },
+        "server_now": {
+          "title": "Server Now",
+          "type": "string"
+        }
+      },
+      "required": [
+        "admin_id",
+        "expires_at",
+        "server_now"
+      ],
+      "title": "AdminSessionView",
+      "type": "object"
+    },
+    "CapabilitySelection": {
+      "additionalProperties": false,
+      "properties": {
+        "theme_id": {
+          "format": "uuid",
+          "title": "Theme Id",
+          "type": "string"
+        },
+        "knowledge_point_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Knowledge Point Ids",
+          "type": "array"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        }
+      },
+      "required": [
+        "theme_id",
+        "knowledge_point_ids",
+        "difficulty"
+      ],
+      "title": "CapabilitySelection",
+      "type": "object"
+    },
+    "CapabilityView": {
+      "additionalProperties": false,
+      "properties": {
+        "content_epoch": {
+          "title": "Content Epoch",
+          "type": "integer"
+        },
+        "selection_hash": {
+          "title": "Selection Hash",
+          "type": "string"
+        },
+        "count_options": {
+          "$ref": "#/$defs/CountOptions"
+        },
+        "feasible_counts": {
+          "items": {
+            "$ref": "#/$defs/QuestionCounts"
+          },
+          "title": "Feasible Counts",
+          "type": "array"
+        },
+        "point_coverage": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Point Coverage",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "content_epoch",
+        "selection_hash",
+        "count_options",
+        "feasible_counts",
+        "point_coverage",
+        "warnings"
+      ],
+      "title": "CapabilityView",
+      "type": "object"
+    },
+    "CatalogCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Za-z0-9_-]{1,64}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "term": {
+          "enum": [
+            "upper",
+            "lower"
+          ],
+          "title": "Term",
+          "type": "string"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "term",
+        "reason"
+      ],
+      "title": "CatalogCreate",
+      "type": "object"
+    },
+    "CatalogDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "term": {
+          "enum": [
+            "upper",
+            "lower"
+          ],
+          "title": "Term",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "archived"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "verification_status": {
+          "enum": [
+            "provisional",
+            "verified"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Id"
+        },
+        "catalog_version": {
+          "title": "Catalog Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name",
+        "term",
+        "status",
+        "verification_status",
+        "lock_version",
+        "source_id",
+        "catalog_version"
+      ],
+      "title": "CatalogDetail",
+      "type": "object"
+    },
+    "CatalogEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "term": {
+          "anyOf": [
+            {
+              "enum": [
+                "upper",
+                "lower"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Term"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "enum": [
+                "draft",
+                "active",
+                "archived"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "CatalogEdit",
+      "type": "object"
+    },
+    "CatalogList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/CatalogSummary"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "offset": {
+          "minimum": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "total": {
+          "minimum": 0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "offset",
+        "limit",
+        "total"
+      ],
+      "title": "CatalogList",
+      "type": "object"
+    },
+    "CatalogState": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "archived"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason",
+        "status"
+      ],
+      "title": "CatalogState",
+      "type": "object"
+    },
+    "CatalogSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "term": {
+          "enum": [
+            "upper",
+            "lower"
+          ],
+          "title": "Term",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "archived"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "verification_status": {
+          "enum": [
+            "provisional",
+            "verified"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name",
+        "term",
+        "status",
+        "verification_status",
+        "lock_version"
+      ],
+      "title": "CatalogSummary",
+      "type": "object"
+    },
+    "ChoiceAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "single_choice",
+          "default": "single_choice",
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        },
+        "correct_option_id": {
+          "format": "uuid",
+          "title": "Correct Option Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "correct_option_id"
+      ],
+      "title": "ChoiceAnswer",
+      "type": "object"
+    },
+    "ChoiceOption": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "value"
+      ],
+      "title": "ChoiceOption",
+      "type": "object"
+    },
+    "CloneRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "source_version_id": {
+          "format": "uuid",
+          "title": "Source Version Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_version_id"
+      ],
+      "title": "CloneRequest",
+      "type": "object"
+    },
+    "CopyRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "source_revision_id": {
+          "format": "uuid",
+          "title": "Source Revision Id",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_revision_id",
+        "reason"
+      ],
+      "title": "CopyRevision",
+      "type": "object"
+    },
+    "CountOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "choice": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Choice",
+          "type": "array"
+        },
+        "fill": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Fill",
+          "type": "array"
+        },
+        "answer": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Answer",
+          "type": "array"
+        }
+      },
+      "required": [
+        "choice",
+        "fill",
+        "answer"
+      ],
+      "title": "CountOptions",
+      "type": "object"
+    },
+    "CountSetting": {
+      "additionalProperties": false,
+      "properties": {
+        "choice": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "title": "Choice",
+          "type": "array"
+        },
+        "fill": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "title": "Fill",
+          "type": "array"
+        },
+        "answer": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "title": "Answer",
+          "type": "array"
+        }
+      },
+      "title": "CountSetting",
+      "type": "object"
+    },
+    "CreatePaperJob": {
+      "additionalProperties": false,
+      "properties": {
+        "theme_id": {
+          "format": "uuid",
+          "title": "Theme Id",
+          "type": "string"
+        },
+        "knowledge_point_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Knowledge Point Ids",
+          "type": "array"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "question_type_counts": {
+          "$ref": "#/$defs/QuestionCounts"
+        },
+        "content_epoch": {
+          "minimum": 0,
+          "title": "Content Epoch",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "theme_id",
+        "knowledge_point_ids",
+        "difficulty",
+        "question_type_counts",
+        "content_epoch"
+      ],
+      "title": "CreatePaperJob",
+      "type": "object"
+    },
+    "CsrfToken": {
+      "additionalProperties": false,
+      "properties": {
+        "csrf_token": {
+          "title": "Csrf Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "csrf_token"
+      ],
+      "title": "CsrfToken",
+      "type": "object"
+    },
+    "DailyGenerationCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "submitted": {
+          "default": 0,
+          "title": "Submitted",
+          "type": "integer"
+        },
+        "succeeded": {
+          "default": 0,
+          "title": "Succeeded",
+          "type": "integer"
+        },
+        "failed": {
+          "default": 0,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "cancelled": {
+          "default": 0,
+          "title": "Cancelled",
+          "type": "integer"
+        },
+        "active_subjects": {
+          "default": 0,
+          "title": "Active Subjects",
+          "type": "integer"
+        },
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "date"
+      ],
+      "title": "DailyGenerationCounts",
+      "type": "object"
+    },
+    "DependencyView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "knowledge_revision",
+            "objective_revision"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "name",
+        "description",
+        "content_hash",
+        "status",
+        "lock_version"
+      ],
+      "title": "DependencyView",
+      "type": "object"
+    },
+    "DisableRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "DisableRequest",
+      "type": "object"
+    },
+    "DraftDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "version_no": {
+          "title": "Version No",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "published",
+            "retired"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "updated_at": {
+          "title": "Updated At",
+          "type": "string"
+        },
+        "question_type": {
+          "default": "answer",
+          "enum": [
+            "answer",
+            "fill",
+            "choice"
+          ],
+          "title": "Question Type",
+          "type": "string"
+        },
+        "template_id": {
+          "format": "uuid",
+          "title": "Template Id",
+          "type": "string"
+        },
+        "generator_key": {
+          "title": "Generator Key",
+          "type": "string"
+        },
+        "generator_version": {
+          "title": "Generator Version",
+          "type": "string"
+        },
+        "objective_code": {
+          "title": "Objective Code",
+          "type": "string"
+        },
+        "editable": {
+          "title": "Editable",
+          "type": "boolean"
+        },
+        "config": {
+          "$ref": "#/$defs/DraftEdit"
+        }
+      },
+      "required": [
+        "id",
+        "version_no",
+        "status",
+        "lock_version",
+        "content_hash",
+        "updated_at",
+        "template_id",
+        "generator_key",
+        "generator_version",
+        "objective_code",
+        "editable",
+        "config"
+      ],
+      "title": "DraftDetail",
+      "type": "object"
+    },
+    "DraftEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "profiles": {
+          "items": {
+            "$ref": "#/$defs/MultiplicationProfile"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Profiles",
+          "type": "array"
+        },
+        "test_cases": {
+          "items": {
+            "$ref": "#/$defs/FixedCaseInput"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Test Cases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "profiles",
+        "test_cases"
+      ],
+      "title": "DraftEdit",
+      "type": "object"
+    },
+    "Envelope_AdminPaperDetail_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/AdminPaperDetail"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[AdminPaperDetail]",
+      "type": "object"
+    },
+    "Envelope_AdminPaperList_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/AdminPaperList"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[AdminPaperList]",
+      "type": "object"
+    },
+    "Envelope_AdminSessionCreated_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/AdminSessionCreated"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[AdminSessionCreated]",
+      "type": "object"
+    },
+    "Envelope_AdminSessionView_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/AdminSessionView"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[AdminSessionView]",
+      "type": "object"
+    },
+    "Envelope_CatalogList_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/CatalogList"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[CatalogList]",
+      "type": "object"
+    },
+    "Envelope_CsrfToken_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/CsrfToken"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[CsrfToken]",
+      "type": "object"
+    },
+    "Envelope_DraftDetail_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/DraftDetail"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[DraftDetail]",
+      "type": "object"
+    },
+    "Envelope_EventResult_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/EventResult"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[EventResult]",
+      "type": "object"
+    },
+    "Envelope_Health_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/Health"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[Health]",
+      "type": "object"
+    },
+    "Envelope_OperationList_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/OperationList"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[OperationList]",
+      "type": "object"
+    },
+    "Envelope_SettingList_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/SettingList"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[SettingList]",
+      "type": "object"
+    },
+    "Envelope_TemplateDetail_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/TemplateDetail"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[TemplateDetail]",
+      "type": "object"
+    },
+    "Envelope_TemplateList_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/TemplateList"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[TemplateList]",
+      "type": "object"
+    },
+    "Envelope_UserSessionCreated_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/UserSessionCreated"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[UserSessionCreated]",
+      "type": "object"
+    },
+    "Envelope_UserSessionView_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/UserSessionView"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[UserSessionView]",
+      "type": "object"
+    },
+    "Envelope_ValidationList_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/ValidationList"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[ValidationList]",
+      "type": "object"
+    },
+    "Envelope_ValidationView_": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/ValidationView"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "request_id"
+      ],
+      "title": "Envelope[ValidationView]",
+      "type": "object"
+    },
+    "ErrorCode": {
+      "enum": [
+        "INVALID_CONFIG",
+        "NOT_FOUND",
+        "INTERNAL_ERROR",
+        "SESSION_EXPIRED",
+        "CSRF_INVALID",
+        "IDEMPOTENCY_CONFLICT",
+        "CAPABILITY_CHANGED",
+        "EDIT_CONFLICT",
+        "ACTIVE_JOB_EXISTS",
+        "CONTENT_UNAVAILABLE",
+        "UNSUPPORTED_COMBINATION",
+        "GENERATION_COOLDOWN",
+        "RATE_LIMITED",
+        "QUEUE_FULL",
+        "DATABASE_BUSY",
+        "GENERATION_EXHAUSTED",
+        "ENGINE_TIMEOUT",
+        "WORKER_LOST",
+        "JOB_NOT_CANCELLABLE",
+        "FILE_UNAVAILABLE",
+        "LOGIN_FAILED",
+        "ORIGIN_INVALID",
+        "SERVICE_NOT_READY"
+      ],
+      "title": "ErrorCode",
+      "type": "string"
+    },
+    "ErrorDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "details"
+      ],
+      "title": "ErrorDetail",
+      "type": "object"
+    },
+    "ErrorResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "$ref": "#/$defs/ErrorDetail"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "error",
+        "request_id"
+      ],
+      "title": "ErrorResponse",
+      "type": "object"
+    },
+    "EventBatch": {
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Events",
+          "type": "array"
+        }
+      },
+      "required": [
+        "events"
+      ],
+      "title": "EventBatch",
+      "type": "object"
+    },
+    "EventInput": {
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "format": "uuid",
+          "title": "Event Id",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "preview",
+            "print_intent"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "paper_id": {
+          "format": "uuid",
+          "title": "Paper Id",
+          "type": "string"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurred At"
+        },
+        "payload": {
+          "$ref": "#/$defs/EventPayload"
+        }
+      },
+      "required": [
+        "event_id",
+        "type",
+        "paper_id",
+        "payload"
+      ],
+      "title": "EventInput",
+      "type": "object"
+    },
+    "EventPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "answer_mode": {
+          "enum": [
+            "student",
+            "solution"
+          ],
+          "title": "Answer Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "answer_mode"
+      ],
+      "title": "EventPayload",
+      "type": "object"
+    },
+    "EventRejection": {
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Event Id"
+        },
+        "code": {
+          "enum": [
+            "INVALID_CONFIG",
+            "NOT_FOUND",
+            "EVENT_CONFLICT"
+          ],
+          "title": "Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "code"
+      ],
+      "title": "EventRejection",
+      "type": "object"
+    },
+    "EventResult": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Accepted Ids",
+          "type": "array"
+        },
+        "duplicate_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Duplicate Ids",
+          "type": "array"
+        },
+        "rejected": {
+          "items": {
+            "$ref": "#/$defs/EventRejection"
+          },
+          "title": "Rejected",
+          "type": "array"
+        }
+      },
+      "required": [
+        "accepted_ids",
+        "duplicate_ids",
+        "rejected"
+      ],
+      "title": "EventResult",
+      "type": "object"
+    },
+    "ExplanationStep": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "math": "#/$defs/MathBlock",
+                "text": "#/$defs/TextBlock"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/TextBlock"
+              },
+              {
+                "$ref": "#/$defs/MathBlock"
+              }
+            ]
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Blocks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "blocks"
+      ],
+      "title": "ExplanationStep",
+      "type": "object"
+    },
+    "FailureSample": {
+      "additionalProperties": false,
+      "properties": {
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "case_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Case Code"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Seed"
+        },
+        "params": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MultiplicationParams"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "error_code": {
+          "title": "Error Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "difficulty",
+        "error_code",
+        "message"
+      ],
+      "title": "FailureSample",
+      "type": "object"
+    },
+    "FixedCaseInput": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Z][A-Z0-9_]{0,63}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/MultiplicationParams"
+        },
+        "expected_answer": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Expected Answer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "difficulty",
+        "params",
+        "expected_answer"
+      ],
+      "title": "FixedCaseInput",
+      "type": "object"
+    },
+    "GenerationCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "submitted": {
+          "default": 0,
+          "title": "Submitted",
+          "type": "integer"
+        },
+        "succeeded": {
+          "default": 0,
+          "title": "Succeeded",
+          "type": "integer"
+        },
+        "failed": {
+          "default": 0,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "cancelled": {
+          "default": 0,
+          "title": "Cancelled",
+          "type": "integer"
+        },
+        "active_subjects": {
+          "default": 0,
+          "title": "Active Subjects",
+          "type": "integer"
+        }
+      },
+      "title": "GenerationCounts",
+      "type": "object"
+    },
+    "GenerationSetting": {
+      "additionalProperties": false,
+      "properties": {
+        "queue_limit": {
+          "default": 10,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Queue Limit",
+          "type": "integer"
+        },
+        "ip_accept_limit": {
+          "default": 12,
+          "maximum": 120,
+          "minimum": 1,
+          "title": "Ip Accept Limit",
+          "type": "integer"
+        }
+      },
+      "title": "GenerationSetting",
+      "type": "object"
+    },
+    "GeneratorChoice": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "available": {
+          "title": "Available",
+          "type": "boolean"
+        },
+        "question_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Question Types",
+          "type": "array"
+        },
+        "difficulties": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Difficulties",
+          "type": "array"
+        },
+        "objective_revision_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Objective Revision Ids",
+          "type": "array"
+        },
+        "default_config": {
+          "$ref": "#/$defs/DraftEdit"
+        },
+        "task_configs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/DraftEdit"
+          },
+          "title": "Task Configs",
+          "type": "object"
+        },
+        "task_objective_revision_ids": {
+          "additionalProperties": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Task Objective Revision Ids",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "key",
+        "version",
+        "available",
+        "question_types",
+        "difficulties",
+        "objective_revision_ids",
+        "default_config",
+        "task_configs",
+        "task_objective_revision_ids"
+      ],
+      "title": "GeneratorChoice",
+      "type": "object"
+    },
+    "Health": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "ok",
+          "title": "Status",
+          "type": "string"
+        },
+        "server_now": {
+          "title": "Server Now",
+          "type": "string"
+        }
+      },
+      "required": [
+        "server_now"
+      ],
+      "title": "Health",
+      "type": "object"
+    },
+    "KnowledgeContent": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "boundary": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Boundary",
+          "type": "string"
+        },
+        "misconceptions": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Misconceptions",
+          "type": "array"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        }
+      },
+      "required": [
+        "name",
+        "definition",
+        "boundary"
+      ],
+      "title": "KnowledgeContent",
+      "type": "object"
+    },
+    "KnowledgeCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Za-z0-9_-]{1,64}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "domain": {
+          "enum": [
+            "number",
+            "operation",
+            "geometry",
+            "model",
+            "statistics",
+            "practice"
+          ],
+          "title": "Domain",
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/$defs/KnowledgeContent"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "domain",
+        "content",
+        "reason"
+      ],
+      "title": "KnowledgeCreate",
+      "type": "object"
+    },
+    "KnowledgeDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "domain": {
+          "title": "Domain",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "disabled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "current_revision_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Revision Id"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "revisions": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeView"
+          },
+          "title": "Revisions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "domain",
+        "status",
+        "current_revision_id",
+        "lock_version",
+        "revisions"
+      ],
+      "title": "KnowledgeDetail",
+      "type": "object"
+    },
+    "KnowledgeEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "boundary": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Boundary",
+          "type": "string"
+        },
+        "misconceptions": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Misconceptions",
+          "type": "array"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "definition",
+        "boundary",
+        "reason"
+      ],
+      "title": "KnowledgeEdit",
+      "type": "object"
+    },
+    "KnowledgeList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeDetail"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        },
+        "offset": {
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "KnowledgeList",
+      "type": "object"
+    },
+    "KnowledgeView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "revision_no": {
+          "title": "Revision No",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "published"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/$defs/KnowledgeContent"
+        }
+      },
+      "required": [
+        "id",
+        "revision_no",
+        "status",
+        "lock_version",
+        "content_hash",
+        "content"
+      ],
+      "title": "KnowledgeView",
+      "type": "object"
+    },
+    "MappingEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/MappingItem"
+          },
+          "maxItems": 200,
+          "title": "Items",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "items",
+        "reason"
+      ],
+      "title": "MappingEdit",
+      "type": "object"
+    },
+    "MappingItem": {
+      "additionalProperties": false,
+      "properties": {
+        "knowledge_revision_id": {
+          "format": "uuid",
+          "title": "Knowledge Revision Id",
+          "type": "string"
+        },
+        "role": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "review"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "knowledge_revision_id"
+      ],
+      "title": "MappingItem",
+      "type": "object"
+    },
+    "MappingView": {
+      "additionalProperties": false,
+      "properties": {
+        "node_id": {
+          "format": "uuid",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/MappingItem"
+          },
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "node_id",
+        "lock_version",
+        "items"
+      ],
+      "title": "MappingView",
+      "type": "object"
+    },
+    "MathBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "math",
+          "default": "math",
+          "title": "Type",
+          "type": "string"
+        },
+        "latex": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Latex",
+          "type": "string"
+        }
+      },
+      "required": [
+        "latex"
+      ],
+      "title": "MathBlock",
+      "type": "object"
+    },
+    "MultiplicationParams": {
+      "additionalProperties": false,
+      "properties": {
+        "a": {
+          "maximum": 999,
+          "minimum": 100,
+          "title": "A",
+          "type": "integer"
+        },
+        "b": {
+          "maximum": 99,
+          "minimum": 11,
+          "title": "B",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "a",
+        "b"
+      ],
+      "title": "MultiplicationParams",
+      "type": "object"
+    },
+    "MultiplicationProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "default": "product",
+          "enum": [
+            "product",
+            "missing_digit",
+            "error_choice",
+            "correction",
+            "zero_product"
+          ],
+          "title": "Task",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "a_min": {
+          "maximum": 999,
+          "minimum": 100,
+          "title": "A Min",
+          "type": "integer"
+        },
+        "a_max": {
+          "maximum": 999,
+          "minimum": 100,
+          "title": "A Max",
+          "type": "integer"
+        },
+        "b_min": {
+          "maximum": 99,
+          "minimum": 11,
+          "title": "B Min",
+          "type": "integer"
+        },
+        "b_max": {
+          "maximum": 99,
+          "minimum": 11,
+          "title": "B Max",
+          "type": "integer"
+        },
+        "allow_zero": {
+          "title": "Allow Zero",
+          "type": "boolean"
+        },
+        "max_carry_events": {
+          "maximum": 9,
+          "minimum": 0,
+          "title": "Max Carry Events",
+          "type": "integer"
+        },
+        "max_per_paper": {
+          "default": 12,
+          "maximum": 12,
+          "minimum": 1,
+          "title": "Max Per Paper",
+          "type": "integer"
+        },
+        "layout": {
+          "$ref": "#/$defs/QuestionLayout"
+        }
+      },
+      "required": [
+        "difficulty",
+        "a_min",
+        "a_max",
+        "b_min",
+        "b_max",
+        "allow_zero",
+        "max_carry_events"
+      ],
+      "title": "MultiplicationProfile",
+      "type": "object"
+    },
+    "MultiplicationQuestion": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "position": {
+          "maximum": 36,
+          "minimum": 1,
+          "title": "Position",
+          "type": "integer"
+        },
+        "question_type": {
+          "default": "answer",
+          "enum": [
+            "answer",
+            "fill",
+            "choice"
+          ],
+          "title": "Question Type",
+          "type": "string"
+        },
+        "render_mode": {
+          "default": "vertical",
+          "enum": [
+            "vertical",
+            "direct"
+          ],
+          "title": "Render Mode",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "primary_knowledge_code": {
+          "default": "O002",
+          "enum": [
+            "O002",
+            "O003"
+          ],
+          "title": "Primary Knowledge Code",
+          "type": "string"
+        },
+        "stem_blocks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "math": "#/$defs/MathBlock",
+                "text": "#/$defs/TextBlock"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/TextBlock"
+              },
+              {
+                "$ref": "#/$defs/MathBlock"
+              }
+            ]
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Stem Blocks",
+          "type": "array"
+        },
+        "options": {
+          "items": {
+            "$ref": "#/$defs/ChoiceOption"
+          },
+          "maxItems": 4,
+          "title": "Options",
+          "type": "array"
+        },
+        "answer": {
+          "discriminator": {
+            "mapping": {
+              "numeric": "#/$defs/NumericAnswer",
+              "single_choice": "#/$defs/ChoiceAnswer"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/NumericAnswer"
+            },
+            {
+              "$ref": "#/$defs/ChoiceAnswer"
+            }
+          ],
+          "title": "Answer"
+        },
+        "explanation_steps": {
+          "items": {
+            "$ref": "#/$defs/ExplanationStep"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Explanation Steps",
+          "type": "array"
+        },
+        "layout": {
+          "$ref": "#/$defs/QuestionLayout"
+        },
+        "render_spec": {
+          "$ref": "#/$defs/VerticalMultiplication"
+        }
+      },
+      "required": [
+        "id",
+        "position",
+        "difficulty",
+        "stem_blocks",
+        "answer",
+        "explanation_steps",
+        "layout",
+        "render_spec"
+      ],
+      "title": "MultiplicationQuestion",
+      "type": "object"
+    },
+    "NodeCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Za-z0-9_-]{1,64}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Id"
+        },
+        "node_type": {
+          "default": "theme",
+          "enum": [
+            "theme",
+            "group"
+          ],
+          "title": "Node Type",
+          "type": "string"
+        },
+        "sort_order": {
+          "default": 0,
+          "maximum": 100000,
+          "minimum": 0,
+          "title": "Sort Order",
+          "type": "integer"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "reason"
+      ],
+      "title": "NodeCreate",
+      "type": "object"
+    },
+    "NodeEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Id"
+        },
+        "sort_order": {
+          "anyOf": [
+            {
+              "maximum": 100000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sort Order"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "enum": [
+                "draft",
+                "active",
+                "disabled"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "NodeEdit",
+      "type": "object"
+    },
+    "NodeState": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "disabled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason",
+        "status"
+      ],
+      "title": "NodeState",
+      "type": "object"
+    },
+    "NodeView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "catalog_id": {
+          "format": "uuid",
+          "title": "Catalog Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "sort_order": {
+          "title": "Sort Order",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Id"
+        },
+        "node_type": {
+          "enum": [
+            "theme",
+            "group"
+          ],
+          "title": "Node Type",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "disabled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "catalog_id",
+        "code",
+        "sort_order",
+        "name",
+        "parent_id",
+        "node_type",
+        "status",
+        "lock_version"
+      ],
+      "title": "NodeView",
+      "type": "object"
+    },
+    "NoticeCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "question_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Question Id"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "error"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "action": {
+          "enum": [
+            "notice",
+            "withdraw"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "severity",
+        "action",
+        "message",
+        "reason"
+      ],
+      "title": "NoticeCreate",
+      "type": "object"
+    },
+    "NoticeView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "question_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Question Id"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "error"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "action": {
+          "enum": [
+            "notice",
+            "withdraw"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "question_id",
+        "severity",
+        "action",
+        "message",
+        "created_at"
+      ],
+      "title": "NoticeView",
+      "type": "object"
+    },
+    "NumericAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "numeric",
+          "default": "numeric",
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "title": "Value",
+          "type": "string"
+        },
+        "unit": {
+          "default": null,
+          "title": "Unit",
+          "type": "null"
+        },
+        "precision_requirement": {
+          "const": "exact_integer",
+          "default": "exact_integer",
+          "title": "Precision Requirement",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "NumericAnswer",
+      "type": "object"
+    },
+    "ObjectiveContent": {
+      "additionalProperties": false,
+      "properties": {
+        "knowledge_revision_id": {
+          "format": "uuid",
+          "title": "Knowledge Revision Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "scope": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "success_criteria": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Success Criteria",
+          "type": "array"
+        },
+        "allowed_prerequisites": {
+          "items": {
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Allowed Prerequisites",
+          "type": "array"
+        }
+      },
+      "required": [
+        "knowledge_revision_id",
+        "name",
+        "scope",
+        "success_criteria"
+      ],
+      "title": "ObjectiveContent",
+      "type": "object"
+    },
+    "ObjectiveCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Za-z0-9_-]{1,64}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/$defs/ObjectiveContent"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "content",
+        "reason"
+      ],
+      "title": "ObjectiveCreate",
+      "type": "object"
+    },
+    "ObjectiveDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "point_id": {
+          "format": "uuid",
+          "title": "Point Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "disabled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "current_revision_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Revision Id"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "revisions": {
+          "items": {
+            "$ref": "#/$defs/ObjectiveView"
+          },
+          "title": "Revisions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "point_id",
+        "code",
+        "status",
+        "current_revision_id",
+        "lock_version",
+        "revisions"
+      ],
+      "title": "ObjectiveDetail",
+      "type": "object"
+    },
+    "ObjectiveEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "knowledge_revision_id": {
+          "format": "uuid",
+          "title": "Knowledge Revision Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "scope": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "success_criteria": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Success Criteria",
+          "type": "array"
+        },
+        "allowed_prerequisites": {
+          "items": {
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Allowed Prerequisites",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "knowledge_revision_id",
+        "name",
+        "scope",
+        "success_criteria",
+        "reason"
+      ],
+      "title": "ObjectiveEdit",
+      "type": "object"
+    },
+    "ObjectiveList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/ObjectiveDetail"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        },
+        "offset": {
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "ObjectiveList",
+      "type": "object"
+    },
+    "ObjectiveView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "revision_no": {
+          "title": "Revision No",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "published"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/$defs/ObjectiveContent"
+        }
+      },
+      "required": [
+        "id",
+        "revision_no",
+        "status",
+        "lock_version",
+        "content_hash",
+        "content"
+      ],
+      "title": "ObjectiveView",
+      "type": "object"
+    },
+    "OperationList": {
+      "additionalProperties": false,
+      "properties": {
+        "date_from": {
+          "format": "date",
+          "title": "Date From",
+          "type": "string"
+        },
+        "date_to": {
+          "format": "date",
+          "title": "Date To",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/OperationView"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Cursor"
+        },
+        "has_more": {
+          "title": "Has More",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "date_from",
+        "date_to",
+        "items",
+        "next_cursor",
+        "has_more"
+      ],
+      "title": "OperationList",
+      "type": "object"
+    },
+    "OperationView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "admin_id": {
+          "format": "uuid",
+          "title": "Admin Id",
+          "type": "string"
+        },
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "target_type": {
+          "title": "Target Type",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        },
+        "request_id": {
+          "format": "uuid",
+          "title": "Request Id",
+          "type": "string"
+        },
+        "before_summary": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Before Summary"
+        },
+        "after_summary": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "After Summary"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "admin_id",
+        "action",
+        "target_type",
+        "target_id",
+        "request_id",
+        "before_summary",
+        "after_summary",
+        "reason",
+        "created_at"
+      ],
+      "title": "OperationView",
+      "type": "object"
+    },
+    "PaperDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "active",
+          "enum": [
+            "active",
+            "withdrawn"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "notices": {
+          "items": {
+            "$ref": "#/$defs/NoticeView"
+          },
+          "title": "Notices",
+          "type": "array"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "total_count": {
+          "title": "Total Count",
+          "type": "integer"
+        },
+        "catalog_name": {
+          "title": "Catalog Name",
+          "type": "string"
+        },
+        "theme_name": {
+          "title": "Theme Name",
+          "type": "string"
+        },
+        "question_type_counts": {
+          "$ref": "#/$defs/QuestionCounts"
+        },
+        "generated_at": {
+          "title": "Generated At",
+          "type": "string"
+        },
+        "files": {
+          "items": {
+            "$ref": "#/$defs/PaperFile"
+          },
+          "title": "Files",
+          "type": "array"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/$defs/MultiplicationQuestion"
+          },
+          "title": "Questions",
+          "type": "array"
+        },
+        "selection": {
+          "$ref": "#/$defs/PaperSelection"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "difficulty",
+        "total_count",
+        "catalog_name",
+        "theme_name",
+        "question_type_counts",
+        "generated_at",
+        "files",
+        "questions",
+        "selection"
+      ],
+      "title": "PaperDetail",
+      "type": "object"
+    },
+    "PaperFile": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "student_pdf",
+            "solution_pdf"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "pages": {
+          "title": "Pages",
+          "type": "integer"
+        },
+        "byte_size": {
+          "title": "Byte Size",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "pages",
+        "byte_size"
+      ],
+      "title": "PaperFile",
+      "type": "object"
+    },
+    "PaperJobList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/PaperJobView"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Cursor"
+        },
+        "has_more": {
+          "title": "Has More",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "items",
+        "next_cursor",
+        "has_more"
+      ],
+      "title": "PaperJobList",
+      "type": "object"
+    },
+    "PaperJobView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "succeeded",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "phase": {
+          "enum": [
+            "queued",
+            "generating",
+            "rendering",
+            "saving",
+            "done"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "attempt": {
+          "title": "Attempt",
+          "type": "integer"
+        },
+        "progress_done": {
+          "title": "Progress Done",
+          "type": "integer"
+        },
+        "progress_total": {
+          "title": "Progress Total",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Finished At"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Code"
+        },
+        "error_message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Message"
+        },
+        "paper_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Paper Id"
+        }
+      },
+      "required": [
+        "id",
+        "status",
+        "phase",
+        "attempt",
+        "progress_done",
+        "progress_total",
+        "created_at",
+        "finished_at",
+        "error_code",
+        "error_message",
+        "paper_id"
+      ],
+      "title": "PaperJobView",
+      "type": "object"
+    },
+    "PaperList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/PaperSummary"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Cursor"
+        },
+        "has_more": {
+          "title": "Has More",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "items",
+        "next_cursor",
+        "has_more"
+      ],
+      "title": "PaperList",
+      "type": "object"
+    },
+    "PaperSelection": {
+      "additionalProperties": false,
+      "description": "Reusable public selection; never carries old seed or publication evidence.",
+      "properties": {
+        "theme_id": {
+          "format": "uuid",
+          "title": "Theme Id",
+          "type": "string"
+        },
+        "knowledge_point_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Knowledge Point Ids",
+          "type": "array"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "catalog_id": {
+          "format": "uuid",
+          "title": "Catalog Id",
+          "type": "string"
+        },
+        "question_type_counts": {
+          "$ref": "#/$defs/QuestionCounts"
+        }
+      },
+      "required": [
+        "theme_id",
+        "knowledge_point_ids",
+        "difficulty",
+        "catalog_id",
+        "question_type_counts"
+      ],
+      "title": "PaperSelection",
+      "type": "object"
+    },
+    "PaperSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "active",
+          "enum": [
+            "active",
+            "withdrawn"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "notices": {
+          "items": {
+            "$ref": "#/$defs/NoticeView"
+          },
+          "title": "Notices",
+          "type": "array"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "total_count": {
+          "title": "Total Count",
+          "type": "integer"
+        },
+        "catalog_name": {
+          "title": "Catalog Name",
+          "type": "string"
+        },
+        "theme_name": {
+          "title": "Theme Name",
+          "type": "string"
+        },
+        "question_type_counts": {
+          "$ref": "#/$defs/QuestionCounts"
+        },
+        "generated_at": {
+          "title": "Generated At",
+          "type": "string"
+        },
+        "files": {
+          "items": {
+            "$ref": "#/$defs/PaperFile"
+          },
+          "title": "Files",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "difficulty",
+        "total_count",
+        "catalog_name",
+        "theme_name",
+        "question_type_counts",
+        "generated_at",
+        "files"
+      ],
+      "title": "PaperSummary",
+      "type": "object"
+    },
+    "PointCapabilities": {
+      "additionalProperties": false,
+      "properties": {
+        "point": {
+          "$ref": "#/$defs/PointView"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "policies": {
+          "items": {
+            "$ref": "#/$defs/PolicyCell"
+          },
+          "title": "Policies",
+          "type": "array"
+        }
+      },
+      "required": [
+        "point",
+        "lock_version",
+        "policies"
+      ],
+      "title": "PointCapabilities",
+      "type": "object"
+    },
+    "PointView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name"
+      ],
+      "title": "PointView",
+      "type": "object"
+    },
+    "PolicyCell": {
+      "additionalProperties": false,
+      "properties": {
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "question_type": {
+          "enum": [
+            "choice",
+            "fill",
+            "answer"
+          ],
+          "title": "Question Type",
+          "type": "string"
+        },
+        "count_options": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "title": "Count Options",
+          "type": "array"
+        },
+        "default_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Default Count"
+        },
+        "supported_count_options": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Supported Count Options",
+          "type": "array"
+        },
+        "effective_count_options": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Effective Count Options",
+          "type": "array"
+        },
+        "evidence_version_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Evidence Version Ids",
+          "type": "array"
+        },
+        "unavailable_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unavailable Reason"
+        }
+      },
+      "required": [
+        "difficulty",
+        "question_type",
+        "count_options",
+        "default_count",
+        "supported_count_options",
+        "effective_count_options",
+        "evidence_version_ids",
+        "unavailable_reason"
+      ],
+      "title": "PolicyCell",
+      "type": "object"
+    },
+    "PolicyEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "policies": {
+          "items": {
+            "$ref": "#/$defs/QuantityPolicy"
+          },
+          "maxItems": 9,
+          "minItems": 9,
+          "title": "Policies",
+          "type": "array"
+        }
+      },
+      "required": [
+        "reason",
+        "policies"
+      ],
+      "title": "PolicyEdit",
+      "type": "object"
+    },
+    "PreviewList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/PreviewView"
+          },
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "title": "PreviewList",
+      "type": "object"
+    },
+    "PreviewRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "lock_version": {
+          "minimum": 1,
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "content_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "count": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Count",
+          "type": "integer"
+        },
+        "seed": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Seed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "lock_version",
+        "content_hash",
+        "difficulty",
+        "count",
+        "seed"
+      ],
+      "title": "PreviewRequest",
+      "type": "object"
+    },
+    "PreviewView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "template_version_id": {
+          "format": "uuid",
+          "title": "Template Version Id",
+          "type": "string"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "succeeded",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "attempt": {
+          "title": "Attempt",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "stale": {
+          "title": "Stale",
+          "type": "boolean"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Code"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/$defs/MultiplicationQuestion"
+          },
+          "title": "Questions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "template_version_id",
+        "content_hash",
+        "status",
+        "attempt",
+        "created_at",
+        "stale",
+        "error_code",
+        "questions"
+      ],
+      "title": "PreviewView",
+      "type": "object"
+    },
+    "ProfileCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "exact_capacity": {
+          "title": "Exact Capacity",
+          "type": "integer"
+        },
+        "random_cases": {
+          "title": "Random Cases",
+          "type": "integer"
+        },
+        "papers_per_count": {
+          "title": "Papers Per Count",
+          "type": "integer"
+        },
+        "checked_count_options": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Checked Count Options",
+          "type": "array"
+        }
+      },
+      "required": [
+        "difficulty",
+        "exact_capacity",
+        "random_cases",
+        "papers_per_count",
+        "checked_count_options"
+      ],
+      "title": "ProfileCoverage",
+      "type": "object"
+    },
+    "PublishRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "version_id": {
+          "format": "uuid",
+          "title": "Version Id",
+          "type": "string"
+        },
+        "validation_run_id": {
+          "format": "uuid",
+          "title": "Validation Run Id",
+          "type": "string"
+        },
+        "review_id": {
+          "format": "uuid",
+          "title": "Review Id",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version_id",
+        "validation_run_id",
+        "review_id",
+        "reason"
+      ],
+      "title": "PublishRequest",
+      "type": "object"
+    },
+    "QuantityPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "difficulty": {
+          "enum": [
+            "basic",
+            "standard",
+            "challenge"
+          ],
+          "title": "Difficulty",
+          "type": "string"
+        },
+        "question_type": {
+          "enum": [
+            "choice",
+            "fill",
+            "answer"
+          ],
+          "title": "Question Type",
+          "type": "string"
+        },
+        "count_options": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "title": "Count Options",
+          "type": "array"
+        },
+        "default_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Default Count"
+        }
+      },
+      "required": [
+        "difficulty",
+        "question_type",
+        "count_options",
+        "default_count"
+      ],
+      "title": "QuantityPolicy",
+      "type": "object"
+    },
+    "QuestionCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "choice": {
+          "maximum": 12,
+          "minimum": 0,
+          "title": "Choice",
+          "type": "integer"
+        },
+        "fill": {
+          "maximum": 12,
+          "minimum": 0,
+          "title": "Fill",
+          "type": "integer"
+        },
+        "answer": {
+          "maximum": 12,
+          "minimum": 0,
+          "title": "Answer",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "choice",
+        "fill",
+        "answer"
+      ],
+      "title": "QuestionCounts",
+      "type": "object"
+    },
+    "QuestionLayout": {
+      "additionalProperties": false,
+      "properties": {
+        "questions_per_row": {
+          "default": 2,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Questions Per Row",
+          "type": "integer"
+        },
+        "solutions_per_row": {
+          "default": 1,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Solutions Per Row",
+          "type": "integer"
+        },
+        "answer_space_mm": {
+          "default": 35,
+          "maximum": 100,
+          "minimum": 20,
+          "title": "Answer Space Mm",
+          "type": "integer"
+        },
+        "keep_together": {
+          "const": true,
+          "default": true,
+          "title": "Keep Together",
+          "type": "boolean"
+        },
+        "diagram_size_mm": {
+          "default": null,
+          "title": "Diagram Size Mm",
+          "type": "null"
+        }
+      },
+      "title": "QuestionLayout",
+      "type": "object"
+    },
+    "QueueCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "queued": {
+          "default": 0,
+          "title": "Queued",
+          "type": "integer"
+        },
+        "running": {
+          "default": 0,
+          "title": "Running",
+          "type": "integer"
+        }
+      },
+      "title": "QueueCounts",
+      "type": "object"
+    },
+    "ReleaseContext": {
+      "additionalProperties": false,
+      "properties": {
+        "template_id": {
+          "format": "uuid",
+          "title": "Template Id",
+          "type": "string"
+        },
+        "template_lock_version": {
+          "title": "Template Lock Version",
+          "type": "integer"
+        },
+        "template_status": {
+          "title": "Template Status",
+          "type": "string"
+        },
+        "current_published_version_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Published Version Id"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/DependencyView"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "reviews": {
+          "items": {
+            "$ref": "#/$defs/ReviewView"
+          },
+          "title": "Reviews",
+          "type": "array"
+        }
+      },
+      "required": [
+        "template_id",
+        "template_lock_version",
+        "template_status",
+        "current_published_version_id",
+        "dependencies",
+        "reviews"
+      ],
+      "title": "ReleaseContext",
+      "type": "object"
+    },
+    "ReleaseView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "template_id": {
+          "format": "uuid",
+          "title": "Template Id",
+          "type": "string"
+        },
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "epoch": {
+          "title": "Epoch",
+          "type": "integer"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "template_id",
+        "action",
+        "epoch",
+        "created_at"
+      ],
+      "title": "ReleaseView",
+      "type": "object"
+    },
+    "RetentionSetting": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "const": false,
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        }
+      },
+      "title": "RetentionSetting",
+      "type": "object"
+    },
+    "ReviewRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "validation_run_id": {
+          "format": "uuid",
+          "title": "Validation Run Id",
+          "type": "string"
+        },
+        "content_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "approved",
+            "rejected"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "comment": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Comment",
+          "type": "string"
+        },
+        "sample_refs": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Sample Refs",
+          "type": "array"
+        },
+        "print_checked": {
+          "title": "Print Checked",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "validation_run_id",
+        "content_hash",
+        "decision",
+        "comment",
+        "sample_refs",
+        "print_checked"
+      ],
+      "title": "ReviewRequest",
+      "type": "object"
+    },
+    "ReviewView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "validation_run_id": {
+          "format": "uuid",
+          "title": "Validation Run Id",
+          "type": "string"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "approved",
+            "rejected"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "comment": {
+          "title": "Comment",
+          "type": "string"
+        },
+        "sample_refs": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Sample Refs",
+          "type": "array"
+        },
+        "print_checked": {
+          "title": "Print Checked",
+          "type": "boolean"
+        },
+        "reviewed_at": {
+          "title": "Reviewed At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "validation_run_id",
+        "content_hash",
+        "decision",
+        "comment",
+        "sample_refs",
+        "print_checked",
+        "reviewed_at"
+      ],
+      "title": "ReviewView",
+      "type": "object"
+    },
+    "RevisionApproval": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content_hash",
+        "reason"
+      ],
+      "title": "RevisionApproval",
+      "type": "object"
+    },
+    "RevisionOption": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "point_id": {
+          "format": "uuid",
+          "title": "Point Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "revision_no": {
+          "title": "Revision No",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "published"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "point_id",
+        "code",
+        "name",
+        "revision_no",
+        "status"
+      ],
+      "title": "RevisionOption",
+      "type": "object"
+    },
+    "RevisionOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/RevisionOption"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        },
+        "offset": {
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "RevisionOptions",
+      "type": "object"
+    },
+    "SettingEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CountSetting"
+            },
+            {
+              "$ref": "#/$defs/GenerationSetting"
+            },
+            {
+              "$ref": "#/$defs/RetentionSetting"
+            }
+          ],
+          "title": "Value"
+        },
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "schema_version",
+        "reason"
+      ],
+      "title": "SettingEdit",
+      "type": "object"
+    },
+    "SettingList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/SettingView"
+          },
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "title": "SettingList",
+      "type": "object"
+    },
+    "SettingView": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "enum": [
+            "question_count_options",
+            "generation_limits",
+            "retention_policy"
+          ],
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CountSetting"
+            },
+            {
+              "$ref": "#/$defs/GenerationSetting"
+            },
+            {
+              "$ref": "#/$defs/RetentionSetting"
+            }
+          ],
+          "title": "Value"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Updated At"
+        }
+      },
+      "required": [
+        "key",
+        "value",
+        "lock_version",
+        "updated_at"
+      ],
+      "title": "SettingView",
+      "type": "object"
+    },
+    "SourceEdit": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "publisher": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publisher"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "pattern": "^https?://[^\\s]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "reference_note": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Note"
+        },
+        "published_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published On"
+        },
+        "checked_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checked At"
+        },
+        "verification_status": {
+          "default": "reference",
+          "enum": [
+            "unverified",
+            "reference",
+            "verified"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        },
+        "evidence_note": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Note"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "reason"
+      ],
+      "title": "SourceEdit",
+      "type": "object"
+    },
+    "SourceList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/SourceView"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        },
+        "offset": {
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "title": "Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "SourceList",
+      "type": "object"
+    },
+    "SourceVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "template_id": {
+          "format": "uuid",
+          "title": "Template Id",
+          "type": "string"
+        },
+        "version_id": {
+          "format": "uuid",
+          "title": "Version Id",
+          "type": "string"
+        },
+        "template_name": {
+          "title": "Template Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "template_id",
+        "version_id",
+        "template_name"
+      ],
+      "title": "SourceVersion",
+      "type": "object"
+    },
+    "SourceView": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "publisher": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publisher"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "pattern": "^https?://[^\\s]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "reference_note": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Note"
+        },
+        "published_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published On"
+        },
+        "checked_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checked At"
+        },
+        "verification_status": {
+          "default": "reference",
+          "enum": [
+            "unverified",
+            "reference",
+            "verified"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        },
+        "evidence_note": {
+          "anyOf": [
+            {
+              "maxLength": 4000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Note"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "title",
+        "id",
+        "lock_version"
+      ],
+      "title": "SourceView",
+      "type": "object"
+    },
+    "TemplateCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "default": "product",
+          "enum": [
+            "product",
+            "missing_digit",
+            "error_choice",
+            "correction",
+            "zero_product"
+          ],
+          "title": "Task",
+          "type": "string"
+        },
+        "question_type": {
+          "default": "answer",
+          "enum": [
+            "answer",
+            "fill",
+            "choice"
+          ],
+          "title": "Question Type",
+          "type": "string"
+        },
+        "code": {
+          "pattern": "^[A-Za-z0-9_-]{1,64}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "generator_id": {
+          "format": "uuid",
+          "title": "Generator Id",
+          "type": "string"
+        },
+        "objective_revision_id": {
+          "format": "uuid",
+          "title": "Objective Revision Id",
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/$defs/DraftEdit"
+        },
+        "reason": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "generator_id",
+        "objective_revision_id",
+        "config",
+        "reason"
+      ],
+      "title": "TemplateCreate",
+      "type": "object"
+    },
+    "TemplateDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "versions": {
+          "items": {
+            "$ref": "#/$defs/VersionSummary"
+          },
+          "title": "Versions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "code",
+        "versions"
+      ],
+      "title": "TemplateDetail",
+      "type": "object"
+    },
+    "TemplateList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/TemplateSummary"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "offset": {
+          "minimum": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "total": {
+          "minimum": 0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "offset",
+        "limit",
+        "total"
+      ],
+      "title": "TemplateList",
+      "type": "object"
+    },
+    "TemplateSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "disabled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "current_published_version_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Published Version Id"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "updated_at": {
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name",
+        "status",
+        "current_published_version_id",
+        "lock_version",
+        "updated_at"
+      ],
+      "title": "TemplateSummary",
+      "type": "object"
+    },
+    "TextBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "text",
+          "default": "text",
+          "title": "Type",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "TextBlock",
+      "type": "object"
+    },
+    "UsageCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "preview": {
+          "default": 0,
+          "title": "Preview",
+          "type": "integer"
+        },
+        "print_intent": {
+          "default": 0,
+          "title": "Print Intent",
+          "type": "integer"
+        }
+      },
+      "title": "UsageCounts",
+      "type": "object"
+    },
+    "UserSessionCreated": {
+      "additionalProperties": false,
+      "properties": {
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        },
+        "expires_at": {
+          "title": "Expires At",
+          "type": "string"
+        },
+        "server_now": {
+          "title": "Server Now",
+          "type": "string"
+        },
+        "next_generation_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Generation At"
+        },
+        "active_job_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Active Job Id"
+        },
+        "can_generate": {
+          "title": "Can Generate",
+          "type": "boolean"
+        },
+        "csrf_token": {
+          "title": "Csrf Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "expires_at",
+        "server_now",
+        "next_generation_at",
+        "active_job_id",
+        "can_generate",
+        "csrf_token"
+      ],
+      "title": "UserSessionCreated",
+      "type": "object"
+    },
+    "UserSessionView": {
+      "additionalProperties": false,
+      "properties": {
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        },
+        "expires_at": {
+          "title": "Expires At",
+          "type": "string"
+        },
+        "server_now": {
+          "title": "Server Now",
+          "type": "string"
+        },
+        "next_generation_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Generation At"
+        },
+        "active_job_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Active Job Id"
+        },
+        "can_generate": {
+          "title": "Can Generate",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "user_id",
+        "expires_at",
+        "server_now",
+        "next_generation_at",
+        "active_job_id",
+        "can_generate"
+      ],
+      "title": "UserSessionView",
+      "type": "object"
+    },
+    "ValidationList": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/ValidationView"
+          },
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "title": "ValidationList",
+      "type": "object"
+    },
+    "ValidationReport": {
+      "additionalProperties": false,
+      "properties": {
+        "result": {
+          "enum": [
+            "passed",
+            "failed"
+          ],
+          "title": "Result",
+          "type": "string"
+        },
+        "sample_count": {
+          "title": "Sample Count",
+          "type": "integer"
+        },
+        "failure_count": {
+          "title": "Failure Count",
+          "type": "integer"
+        },
+        "failures_truncated": {
+          "title": "Failures Truncated",
+          "type": "boolean"
+        },
+        "coverage": {
+          "items": {
+            "$ref": "#/$defs/ProfileCoverage"
+          },
+          "title": "Coverage",
+          "type": "array"
+        },
+        "failures": {
+          "items": {
+            "$ref": "#/$defs/FailureSample"
+          },
+          "title": "Failures",
+          "type": "array"
+        },
+        "samples": {
+          "items": {
+            "$ref": "#/$defs/MultiplicationQuestion"
+          },
+          "maxItems": 30,
+          "title": "Samples",
+          "type": "array"
+        },
+        "human_review": {
+          "const": "pending",
+          "default": "pending",
+          "title": "Human Review",
+          "type": "string"
+        },
+        "pdf_review": {
+          "const": "pending",
+          "default": "pending",
+          "title": "Pdf Review",
+          "type": "string"
+        }
+      },
+      "required": [
+        "result",
+        "sample_count",
+        "failure_count",
+        "failures_truncated",
+        "coverage",
+        "failures"
+      ],
+      "title": "ValidationReport",
+      "type": "object"
+    },
+    "ValidationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "lock_version": {
+          "minimum": 1,
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "content_hash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "lock_version",
+        "content_hash"
+      ],
+      "title": "ValidationRequest",
+      "type": "object"
+    },
+    "ValidationView": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "job_id": {
+          "format": "uuid",
+          "title": "Job Id",
+          "type": "string"
+        },
+        "template_version_id": {
+          "format": "uuid",
+          "title": "Template Version Id",
+          "type": "string"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "passed",
+            "failed",
+            "stale"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "job_status": {
+          "enum": [
+            "queued",
+            "running",
+            "succeeded",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Job Status",
+          "type": "string"
+        },
+        "attempt": {
+          "title": "Attempt",
+          "type": "integer"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Code"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Finished At"
+        },
+        "report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValidationReport"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "job_id",
+        "template_version_id",
+        "content_hash",
+        "status",
+        "job_status",
+        "attempt",
+        "error_code",
+        "created_at",
+        "finished_at",
+        "report"
+      ],
+      "title": "ValidationView",
+      "type": "object"
+    },
+    "VersionSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "version_no": {
+          "title": "Version No",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "published",
+            "retired"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "lock_version": {
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "updated_at": {
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version_no",
+        "status",
+        "lock_version",
+        "content_hash",
+        "updated_at"
+      ],
+      "title": "VersionSummary",
+      "type": "object"
+    },
+    "VerticalMultiplication": {
+      "additionalProperties": false,
+      "properties": {
+        "incorrect_tens_partial": {
+          "anyOf": [
+            {
+              "pattern": "^(0|[1-9][0-9]*)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incorrect Tens Partial"
+        },
+        "incorrect_result": {
+          "anyOf": [
+            {
+              "pattern": "^(0|[1-9][0-9]*)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incorrect Result"
+        },
+        "missing_digit_index": {
+          "anyOf": [
+            {
+              "const": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Missing Digit Index"
+        },
+        "kind": {
+          "const": "integer_multiplication",
+          "default": "integer_multiplication",
+          "title": "Kind",
+          "type": "string"
+        },
+        "multiplicand": {
+          "pattern": "^[1-9][0-9]{2}$",
+          "title": "Multiplicand",
+          "type": "string"
+        },
+        "multiplier": {
+          "pattern": "^[1-9][0-9]$",
+          "title": "Multiplier",
+          "type": "string"
+        },
+        "ones_partial": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "title": "Ones Partial",
+          "type": "string"
+        },
+        "tens_partial": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "title": "Tens Partial",
+          "type": "string"
+        },
+        "tens_shift": {
+          "const": 1,
+          "default": 1,
+          "title": "Tens Shift",
+          "type": "integer"
+        },
+        "result": {
+          "pattern": "^[1-9][0-9]*$",
+          "title": "Result",
+          "type": "string"
+        }
+      },
+      "required": [
+        "multiplicand",
+        "multiplier",
+        "ones_partial",
+        "tens_partial",
+        "result"
+      ],
+      "title": "VerticalMultiplication",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "event_input": {
+      "$ref": "#/$defs/EventInput"
+    },
+    "event_batch": {
+      "$ref": "#/$defs/EventBatch"
+    },
+    "event_result": {
+      "$ref": "#/$defs/Envelope_EventResult_"
+    },
+    "operation_list": {
+      "$ref": "#/$defs/Envelope_OperationList_"
+    },
+    "settings": {
+      "$ref": "#/$defs/Envelope_SettingList_"
+    },
+    "setting_edit": {
+      "$ref": "#/$defs/SettingEdit"
+    },
+    "setting_view": {
+      "$ref": "#/$defs/SettingView"
+    },
+    "admin_papers": {
+      "$ref": "#/$defs/Envelope_AdminPaperList_"
+    },
+    "admin_paper": {
+      "$ref": "#/$defs/Envelope_AdminPaperDetail_"
+    },
+    "notice_create": {
+      "$ref": "#/$defs/NoticeCreate"
+    },
+    "user_session": {
+      "$ref": "#/$defs/Envelope_UserSessionView_"
+    },
+    "user_bootstrap": {
+      "$ref": "#/$defs/Envelope_UserSessionCreated_"
+    },
+    "admin_session": {
+      "$ref": "#/$defs/Envelope_AdminSessionView_"
+    },
+    "admin_login_response": {
+      "$ref": "#/$defs/Envelope_AdminSessionCreated_"
+    },
+    "admin_login_request": {
+      "$ref": "#/$defs/AdminLogin"
+    },
+    "csrf": {
+      "$ref": "#/$defs/Envelope_CsrfToken_"
+    },
+    "health": {
+      "$ref": "#/$defs/Envelope_Health_"
+    },
+    "paper_request": {
+      "$ref": "#/$defs/CreatePaperJob"
+    },
+    "error": {
+      "$ref": "#/$defs/ErrorResponse"
+    },
+    "multiplication_question": {
+      "$ref": "#/$defs/MultiplicationQuestion"
+    },
+    "multiplication_profile": {
+      "$ref": "#/$defs/MultiplicationProfile"
+    },
+    "catalog_list": {
+      "$ref": "#/$defs/Envelope_CatalogList_"
+    },
+    "template_list": {
+      "$ref": "#/$defs/Envelope_TemplateList_"
+    },
+    "template_detail": {
+      "$ref": "#/$defs/Envelope_TemplateDetail_"
+    },
+    "draft_detail": {
+      "$ref": "#/$defs/Envelope_DraftDetail_"
+    },
+    "draft_edit": {
+      "$ref": "#/$defs/DraftEdit"
+    },
+    "validation_request": {
+      "$ref": "#/$defs/ValidationRequest"
+    },
+    "validation_view": {
+      "$ref": "#/$defs/Envelope_ValidationView_"
+    },
+    "validation_list": {
+      "$ref": "#/$defs/Envelope_ValidationList_"
+    },
+    "review_request": {
+      "$ref": "#/$defs/ReviewRequest"
+    },
+    "review_view": {
+      "$ref": "#/$defs/ReviewView"
+    },
+    "revision_approval": {
+      "$ref": "#/$defs/RevisionApproval"
+    },
+    "publish_request": {
+      "$ref": "#/$defs/PublishRequest"
+    },
+    "disable_request": {
+      "$ref": "#/$defs/DisableRequest"
+    },
+    "release_context": {
+      "$ref": "#/$defs/ReleaseContext"
+    },
+    "release_view": {
+      "$ref": "#/$defs/ReleaseView"
+    },
+    "clone_request": {
+      "$ref": "#/$defs/CloneRequest"
+    },
+    "catalog_state": {
+      "$ref": "#/$defs/CatalogState"
+    },
+    "node_state": {
+      "$ref": "#/$defs/NodeState"
+    },
+    "node_view": {
+      "$ref": "#/$defs/NodeView"
+    },
+    "point_view": {
+      "$ref": "#/$defs/PointView"
+    },
+    "point_capabilities": {
+      "$ref": "#/$defs/PointCapabilities"
+    },
+    "policy_edit": {
+      "$ref": "#/$defs/PolicyEdit"
+    },
+    "capability_selection": {
+      "$ref": "#/$defs/CapabilitySelection"
+    },
+    "capability_view": {
+      "$ref": "#/$defs/CapabilityView"
+    },
+    "paper_job_view": {
+      "$ref": "#/$defs/PaperJobView"
+    },
+    "paper_job_list": {
+      "$ref": "#/$defs/PaperJobList"
+    },
+    "paper_summary": {
+      "$ref": "#/$defs/PaperSummary"
+    },
+    "paper_detail": {
+      "$ref": "#/$defs/PaperDetail"
+    },
+    "paper_list": {
+      "$ref": "#/$defs/PaperList"
+    },
+    "admin_job_list": {
+      "$ref": "#/$defs/AdminJobList"
+    },
+    "admin_job_detail": {
+      "$ref": "#/$defs/AdminJobDetail"
+    },
+    "admin_overview": {
+      "$ref": "#/$defs/AdminOverview"
+    },
+    "catalog_create": {
+      "$ref": "#/$defs/CatalogCreate"
+    },
+    "catalog_detail": {
+      "$ref": "#/$defs/CatalogDetail"
+    },
+    "catalog_edit": {
+      "$ref": "#/$defs/CatalogEdit"
+    },
+    "node_create": {
+      "$ref": "#/$defs/NodeCreate"
+    },
+    "node_edit": {
+      "$ref": "#/$defs/NodeEdit"
+    },
+    "mapping_edit": {
+      "$ref": "#/$defs/MappingEdit"
+    },
+    "mapping_view": {
+      "$ref": "#/$defs/MappingView"
+    },
+    "revision_options": {
+      "$ref": "#/$defs/RevisionOptions"
+    },
+    "source_edit": {
+      "$ref": "#/$defs/SourceEdit"
+    },
+    "source_list": {
+      "$ref": "#/$defs/SourceList"
+    },
+    "knowledge_create": {
+      "$ref": "#/$defs/KnowledgeCreate"
+    },
+    "objective_create": {
+      "$ref": "#/$defs/ObjectiveCreate"
+    },
+    "knowledge_edit": {
+      "$ref": "#/$defs/KnowledgeEdit"
+    },
+    "objective_edit": {
+      "$ref": "#/$defs/ObjectiveEdit"
+    },
+    "copy_revision": {
+      "$ref": "#/$defs/CopyRevision"
+    },
+    "knowledge_list": {
+      "$ref": "#/$defs/KnowledgeList"
+    },
+    "objective_list": {
+      "$ref": "#/$defs/ObjectiveList"
+    },
+    "generator_choice": {
+      "$ref": "#/$defs/GeneratorChoice"
+    },
+    "template_create": {
+      "$ref": "#/$defs/TemplateCreate"
+    },
+    "preview_request": {
+      "$ref": "#/$defs/PreviewRequest"
+    },
+    "preview_list": {
+      "$ref": "#/$defs/PreviewList"
+    }
+  },
+  "required": [
+    "event_input",
+    "event_batch",
+    "event_result",
+    "operation_list",
+    "settings",
+    "setting_edit",
+    "setting_view",
+    "admin_papers",
+    "admin_paper",
+    "notice_create",
+    "user_session",
+    "user_bootstrap",
+    "admin_session",
+    "admin_login_response",
+    "admin_login_request",
+    "csrf",
+    "health",
+    "paper_request",
+    "error",
+    "multiplication_question",
+    "multiplication_profile",
+    "catalog_list",
+    "template_list",
+    "template_detail",
+    "draft_detail",
+    "draft_edit",
+    "validation_request",
+    "validation_view",
+    "validation_list",
+    "review_request",
+    "review_view",
+    "revision_approval",
+    "publish_request",
+    "disable_request",
+    "release_context",
+    "release_view",
+    "clone_request",
+    "catalog_state",
+    "node_state",
+    "node_view",
+    "point_view",
+    "point_capabilities",
+    "policy_edit",
+    "capability_selection",
+    "capability_view",
+    "paper_job_view",
+    "paper_job_list",
+    "paper_summary",
+    "paper_detail",
+    "paper_list",
+    "admin_job_list",
+    "admin_job_detail",
+    "admin_overview",
+    "catalog_create",
+    "catalog_detail",
+    "catalog_edit",
+    "node_create",
+    "node_edit",
+    "mapping_edit",
+    "mapping_view",
+    "revision_options",
+    "source_edit",
+    "source_list",
+    "knowledge_create",
+    "objective_create",
+    "knowledge_edit",
+    "objective_edit",
+    "copy_revision",
+    "knowledge_list",
+    "objective_list",
+    "generator_choice",
+    "template_create",
+    "preview_request",
+    "preview_list"
+  ],
+  "title": "Contracts",
+  "type": "object"
+}

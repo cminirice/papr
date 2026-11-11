@@ -1,0 +1,21 @@
+[project]
+name = "papr-backend"
+version = "0.1.0"
+description = "纸上练 API 与持久任务基础"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.141.1",
+  "argon2-cffi==25.1.0",
+  "pydantic==2.13.5",
+  "sqlalchemy==2.0.54",
+  "alembic==1.20.0",
+  "uvicorn==0.53.0",
+  "pypdf==7.0.1",
+]
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "httpx>=0.28,<0.29"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -1,0 +1,17 @@
+{
+  "name": "@papr/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./time": "./src/time.mjs",
+    "./tokens.css": "./src/tokens.css",
+    "./api": "./src/api.ts",
+    "./contracts": "./src/api.generated.ts",
+    "./question": "./src/QuestionRenderer.vue",
+    "./questions": "./src/QuestionSections.vue"
+  },
+  "peerDependencies": {
+    "vue": "3.5.41"
+  }
+}

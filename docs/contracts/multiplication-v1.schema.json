@@ -1,0 +1,425 @@
+{
+  "$defs": {
+    "ChoiceAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "single_choice",
+          "default": "single_choice",
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        },
+        "correct_option_id": {
+          "format": "uuid",
+          "title": "Correct Option Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "correct_option_id"
+      ],
+      "title": "ChoiceAnswer",
+      "type": "object"
+    },
+    "ChoiceOption": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "value"
+      ],
+      "title": "ChoiceOption",
+      "type": "object"
+    },
+    "ExplanationStep": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "math": "#/$defs/MathBlock",
+                "text": "#/$defs/TextBlock"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/TextBlock"
+              },
+              {
+                "$ref": "#/$defs/MathBlock"
+              }
+            ]
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Blocks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "blocks"
+      ],
+      "title": "ExplanationStep",
+      "type": "object"
+    },
+    "MathBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "math",
+          "default": "math",
+          "title": "Type",
+          "type": "string"
+        },
+        "latex": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Latex",
+          "type": "string"
+        }
+      },
+      "required": [
+        "latex"
+      ],
+      "title": "MathBlock",
+      "type": "object"
+    },
+    "NumericAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "numeric",
+          "default": "numeric",
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "title": "Value",
+          "type": "string"
+        },
+        "unit": {
+          "default": null,
+          "title": "Unit",
+          "type": "null"
+        },
+        "precision_requirement": {
+          "const": "exact_integer",
+          "default": "exact_integer",
+          "title": "Precision Requirement",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "NumericAnswer",
+      "type": "object"
+    },
+    "QuestionLayout": {
+      "additionalProperties": false,
+      "properties": {
+        "questions_per_row": {
+          "default": 2,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Questions Per Row",
+          "type": "integer"
+        },
+        "solutions_per_row": {
+          "default": 1,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Solutions Per Row",
+          "type": "integer"
+        },
+        "answer_space_mm": {
+          "default": 35,
+          "maximum": 100,
+          "minimum": 20,
+          "title": "Answer Space Mm",
+          "type": "integer"
+        },
+        "keep_together": {
+          "const": true,
+          "default": true,
+          "title": "Keep Together",
+          "type": "boolean"
+        },
+        "diagram_size_mm": {
+          "default": null,
+          "title": "Diagram Size Mm",
+          "type": "null"
+        }
+      },
+      "title": "QuestionLayout",
+      "type": "object"
+    },
+    "TextBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "text",
+          "default": "text",
+          "title": "Type",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "TextBlock",
+      "type": "object"
+    },
+    "VerticalMultiplication": {
+      "additionalProperties": false,
+      "properties": {
+        "incorrect_tens_partial": {
+          "anyOf": [
+            {
+              "pattern": "^(0|[1-9][0-9]*)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incorrect Tens Partial"
+        },
+        "incorrect_result": {
+          "anyOf": [
+            {
+              "pattern": "^(0|[1-9][0-9]*)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Incorrect Result"
+        },
+        "missing_digit_index": {
+          "anyOf": [
+            {
+              "const": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Missing Digit Index"
+        },
+        "kind": {
+          "const": "integer_multiplication",
+          "default": "integer_multiplication",
+          "title": "Kind",
+          "type": "string"
+        },
+        "multiplicand": {
+          "pattern": "^[1-9][0-9]{2}$",
+          "title": "Multiplicand",
+          "type": "string"
+        },
+        "multiplier": {
+          "pattern": "^[1-9][0-9]$",
+          "title": "Multiplier",
+          "type": "string"
+        },
+        "ones_partial": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "title": "Ones Partial",
+          "type": "string"
+        },
+        "tens_partial": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "title": "Tens Partial",
+          "type": "string"
+        },
+        "tens_shift": {
+          "const": 1,
+          "default": 1,
+          "title": "Tens Shift",
+          "type": "integer"
+        },
+        "result": {
+          "pattern": "^[1-9][0-9]*$",
+          "title": "Result",
+          "type": "string"
+        }
+      },
+      "required": [
+        "multiplicand",
+        "multiplier",
+        "ones_partial",
+        "tens_partial",
+        "result"
+      ],
+      "title": "VerticalMultiplication",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "id": {
+      "format": "uuid",
+      "title": "Id",
+      "type": "string"
+    },
+    "position": {
+      "maximum": 36,
+      "minimum": 1,
+      "title": "Position",
+      "type": "integer"
+    },
+    "question_type": {
+      "default": "answer",
+      "enum": [
+        "answer",
+        "fill",
+        "choice"
+      ],
+      "title": "Question Type",
+      "type": "string"
+    },
+    "render_mode": {
+      "default": "vertical",
+      "enum": [
+        "vertical",
+        "direct"
+      ],
+      "title": "Render Mode",
+      "type": "string"
+    },
+    "difficulty": {
+      "enum": [
+        "basic",
+        "standard",
+        "challenge"
+      ],
+      "title": "Difficulty",
+      "type": "string"
+    },
+    "primary_knowledge_code": {
+      "default": "O002",
+      "enum": [
+        "O002",
+        "O003"
+      ],
+      "title": "Primary Knowledge Code",
+      "type": "string"
+    },
+    "stem_blocks": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "math": "#/$defs/MathBlock",
+            "text": "#/$defs/TextBlock"
+          },
+          "propertyName": "type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/TextBlock"
+          },
+          {
+            "$ref": "#/$defs/MathBlock"
+          }
+        ]
+      },
+      "maxItems": 4,
+      "minItems": 1,
+      "title": "Stem Blocks",
+      "type": "array"
+    },
+    "options": {
+      "items": {
+        "$ref": "#/$defs/ChoiceOption"
+      },
+      "maxItems": 4,
+      "title": "Options",
+      "type": "array"
+    },
+    "answer": {
+      "discriminator": {
+        "mapping": {
+          "numeric": "#/$defs/NumericAnswer",
+          "single_choice": "#/$defs/ChoiceAnswer"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/NumericAnswer"
+        },
+        {
+          "$ref": "#/$defs/ChoiceAnswer"
+        }
+      ],
+      "title": "Answer"
+    },
+    "explanation_steps": {
+      "items": {
+        "$ref": "#/$defs/ExplanationStep"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "title": "Explanation Steps",
+      "type": "array"
+    },
+    "layout": {
+      "$ref": "#/$defs/QuestionLayout"
+    },
+    "render_spec": {
+      "$ref": "#/$defs/VerticalMultiplication"
+    }
+  },
+  "required": [
+    "id",
+    "position",
+    "difficulty",
+    "stem_blocks",
+    "answer",
+    "explanation_steps",
+    "layout",
+    "render_spec"
+  ],
+  "title": "MultiplicationQuestion",
+  "type": "object"
+}

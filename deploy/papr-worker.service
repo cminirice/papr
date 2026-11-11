@@ -1,0 +1,18 @@
+[Unit]
+Description=papr PDF and generation worker
+After=network.target
+
+[Service]
+Type=simple
+User=papr
+Group=papr
+WorkingDirectory=/opt/papr
+EnvironmentFile=/etc/papr/papr.env
+ExecStart=/opt/papr/backend/.venv/bin/python -u scripts/worker.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=90
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

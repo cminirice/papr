@@ -1,0 +1,17 @@
+[Unit]
+Description=papr API
+After=network.target
+
+[Service]
+Type=simple
+User=papr
+Group=papr
+WorkingDirectory=/opt/papr
+EnvironmentFile=/etc/papr/papr.env
+ExecStart=/opt/papr/backend/.venv/bin/python -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8001 --workers 1 --no-proxy-headers
+Restart=on-failure
+RestartSec=5
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+{
+  "name": "@papr/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "vue": "3.5.41",
+    "@papr/shared": "0.1.0"
+  }
+}

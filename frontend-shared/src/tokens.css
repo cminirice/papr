@@ -1,0 +1,2 @@
+@import url('./base.css');
+:root { --papr-primary: #07ac8e; --papr-primary-dark: #087563; --papr-bg: #f5f7f8; --papr-surface: #fff; --papr-text: #20352f; --papr-muted: #63736f; --papr-border: #e1e9e6; --papr-radius: 16px; }

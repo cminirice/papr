@@ -1,0 +1,33 @@
+{
+  "name": "papr",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "web",
+    "admin",
+    "frontend-shared"
+  ],
+  "engines": {
+    "node": ">=22.12.0 <23"
+  },
+  "scripts": {
+    "dev:web": "npm run dev -w @papr/web",
+    "dev:admin": "npm run dev -w @papr/admin",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "build": "npm run typecheck && npm run build -w @papr/web && npm run build -w @papr/admin && npm run build:print",
+    "test": "npm run build:print && node --test frontend-shared/tests/*.test.mjs",
+    "build:print": "vite build --config print/vite.config.ts",
+    "pdf:probe": "node scripts/pdf_probe.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.43",
+    "@vitejs/plugin-vue": "6.0.9",
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "vue-tsc": "3.3.10"
+  },
+  "dependencies": {
+    "playwright-core": "https://registry.npmjs.org/playwright-core/-/playwright-core-1.56.1.tgz"
+  }
+}

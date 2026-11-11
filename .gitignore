@@ -1,0 +1,37 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+*.db-wal
+*.db-shm
+backend/var/
+node_modules/
+dist/
+coverage/
+*.log
+.npm-cache/
+.uv-cache/
+rate-limit.key
+
+# Local IDE and agent state
+.idea/
+.vscode/
+.codex/
+.agents/
+*.pem
+*.key
+# Server-installed browser/font assets
+browsers/
+fonts/
+
+# Unrelated local document outputs
+admin/output/

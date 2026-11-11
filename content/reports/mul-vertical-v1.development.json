@@ -1,0 +1,430 @@
+{
+  "generated_at": "2026-10-27T14:09:09.667897+08:00",
+  "input_hash": "a00600383ca70787a723c3b7280b0b0fe030bf17efeea462e7653fb65b085e7e",
+  "generator_artifact_hash": "a3e73df4567807d03c362c929acb60a1c05ef3250baa6431a6131ae59720fa69",
+  "validation_kind": "offline_development",
+  "template_status": "draft",
+  "human_review": "pending",
+  "pdf_review": "pending",
+  "profiles": [
+    {
+      "difficulty": "basic",
+      "exact_capacity": 493,
+      "random_cases": 100,
+      "papers_per_count": 20,
+      "checked_count_options": [
+        3,
+        6,
+        8,
+        10,
+        12
+      ]
+    },
+    {
+      "difficulty": "standard",
+      "exact_capacity": 80100,
+      "random_cases": 100,
+      "papers_per_count": 20,
+      "checked_count_options": [
+        3,
+        6,
+        8,
+        10,
+        12
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "schema_version": 1,
+      "id": "0ec0830b-439c-5dba-8086-b0f0995192a2",
+      "position": 1,
+      "question_type": "answer",
+      "render_mode": "vertical",
+      "difficulty": "basic",
+      "primary_knowledge_code": "O002",
+      "stem_blocks": [
+        {
+          "type": "text",
+          "text": "用竖式计算。"
+        },
+        {
+          "type": "math",
+          "latex": "123\\times 12="
+        }
+      ],
+      "options": [],
+      "answer": {
+        "kind": "numeric",
+        "value": "1476",
+        "unit": null,
+        "precision_requirement": "exact_integer"
+      },
+      "explanation_steps": [
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "先算个位上的数与被乘数的积。"
+            },
+            {
+              "type": "math",
+              "latex": "123\\times 2=246"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "再算十位上的数与被乘数的积，按十位对齐。"
+            },
+            {
+              "type": "math",
+              "latex": "123\\times 1\\times 10=1230"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "把两个部分积相加。"
+            },
+            {
+              "type": "math",
+              "latex": "246+1230=1476"
+            }
+          ]
+        }
+      ],
+      "layout": {
+        "answer_space_mm": 35,
+        "keep_together": true,
+        "diagram_size_mm": null
+      },
+      "render_spec": {
+        "kind": "integer_multiplication",
+        "multiplicand": "123",
+        "multiplier": "12",
+        "ones_partial": "246",
+        "tens_partial": "1230",
+        "tens_shift": 1,
+        "result": "1476"
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "9426f7d7-d30b-5d0e-af72-0f1420361832",
+      "position": 1,
+      "question_type": "answer",
+      "render_mode": "vertical",
+      "difficulty": "standard",
+      "primary_knowledge_code": "O002",
+      "stem_blocks": [
+        {
+          "type": "text",
+          "text": "用竖式计算。"
+        },
+        {
+          "type": "math",
+          "latex": "100\\times 11="
+        }
+      ],
+      "options": [],
+      "answer": {
+        "kind": "numeric",
+        "value": "1100",
+        "unit": null,
+        "precision_requirement": "exact_integer"
+      },
+      "explanation_steps": [
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "先算个位上的数与被乘数的积。"
+            },
+            {
+              "type": "math",
+              "latex": "100\\times 1=100"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "再算十位上的数与被乘数的积，按十位对齐。"
+            },
+            {
+              "type": "math",
+              "latex": "100\\times 1\\times 10=1000"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "把两个部分积相加。"
+            },
+            {
+              "type": "math",
+              "latex": "100+1000=1100"
+            }
+          ]
+        }
+      ],
+      "layout": {
+        "answer_space_mm": 35,
+        "keep_together": true,
+        "diagram_size_mm": null
+      },
+      "render_spec": {
+        "kind": "integer_multiplication",
+        "multiplicand": "100",
+        "multiplier": "11",
+        "ones_partial": "100",
+        "tens_partial": "1000",
+        "tens_shift": 1,
+        "result": "1100"
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "7b9324a3-50e5-5b5e-acd4-8a41baee72a8",
+      "position": 1,
+      "question_type": "answer",
+      "render_mode": "vertical",
+      "difficulty": "standard",
+      "primary_knowledge_code": "O002",
+      "stem_blocks": [
+        {
+          "type": "text",
+          "text": "用竖式计算。"
+        },
+        {
+          "type": "math",
+          "latex": "109\\times 19="
+        }
+      ],
+      "options": [],
+      "answer": {
+        "kind": "numeric",
+        "value": "2071",
+        "unit": null,
+        "precision_requirement": "exact_integer"
+      },
+      "explanation_steps": [
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "先算个位上的数与被乘数的积。"
+            },
+            {
+              "type": "math",
+              "latex": "109\\times 9=981"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "再算十位上的数与被乘数的积，按十位对齐。"
+            },
+            {
+              "type": "math",
+              "latex": "109\\times 1\\times 10=1090"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "把两个部分积相加。"
+            },
+            {
+              "type": "math",
+              "latex": "981+1090=2071"
+            }
+          ]
+        }
+      ],
+      "layout": {
+        "answer_space_mm": 35,
+        "keep_together": true,
+        "diagram_size_mm": null
+      },
+      "render_spec": {
+        "kind": "integer_multiplication",
+        "multiplicand": "109",
+        "multiplier": "19",
+        "ones_partial": "981",
+        "tens_partial": "1090",
+        "tens_shift": 1,
+        "result": "2071"
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "4c861f49-419e-554c-9c62-cbc95e45ff65",
+      "position": 1,
+      "question_type": "answer",
+      "render_mode": "vertical",
+      "difficulty": "standard",
+      "primary_knowledge_code": "O002",
+      "stem_blocks": [
+        {
+          "type": "text",
+          "text": "用竖式计算。"
+        },
+        {
+          "type": "math",
+          "latex": "308\\times 26="
+        }
+      ],
+      "options": [],
+      "answer": {
+        "kind": "numeric",
+        "value": "8008",
+        "unit": null,
+        "precision_requirement": "exact_integer"
+      },
+      "explanation_steps": [
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "先算个位上的数与被乘数的积。"
+            },
+            {
+              "type": "math",
+              "latex": "308\\times 6=1848"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "再算十位上的数与被乘数的积，按十位对齐。"
+            },
+            {
+              "type": "math",
+              "latex": "308\\times 2\\times 10=6160"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "把两个部分积相加。"
+            },
+            {
+              "type": "math",
+              "latex": "1848+6160=8008"
+            }
+          ]
+        }
+      ],
+      "layout": {
+        "answer_space_mm": 35,
+        "keep_together": true,
+        "diagram_size_mm": null
+      },
+      "render_spec": {
+        "kind": "integer_multiplication",
+        "multiplicand": "308",
+        "multiplier": "26",
+        "ones_partial": "1848",
+        "tens_partial": "6160",
+        "tens_shift": 1,
+        "result": "8008"
+      }
+    },
+    {
+      "schema_version": 1,
+      "id": "0f0a451c-8d91-5752-a1ae-4b6ac0d8d323",
+      "position": 1,
+      "question_type": "answer",
+      "render_mode": "vertical",
+      "difficulty": "standard",
+      "primary_knowledge_code": "O002",
+      "stem_blocks": [
+        {
+          "type": "text",
+          "text": "用竖式计算。"
+        },
+        {
+          "type": "math",
+          "latex": "999\\times 99="
+        }
+      ],
+      "options": [],
+      "answer": {
+        "kind": "numeric",
+        "value": "98901",
+        "unit": null,
+        "precision_requirement": "exact_integer"
+      },
+      "explanation_steps": [
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "先算个位上的数与被乘数的积。"
+            },
+            {
+              "type": "math",
+              "latex": "999\\times 9=8991"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "再算十位上的数与被乘数的积，按十位对齐。"
+            },
+            {
+              "type": "math",
+              "latex": "999\\times 9\\times 10=89910"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "text",
+              "text": "把两个部分积相加。"
+            },
+            {
+              "type": "math",
+              "latex": "8991+89910=98901"
+            }
+          ]
+        }
+      ],
+      "layout": {
+        "answer_space_mm": 35,
+        "keep_together": true,
+        "diagram_size_mm": null
+      },
+      "render_spec": {
+        "kind": "integer_multiplication",
+        "multiplicand": "999",
+        "multiplier": "99",
+        "ones_partial": "8991",
+        "tens_partial": "89910",
+        "tens_shift": 1,
+        "result": "98901"
+      }
+    }
+  ],
+  "result": "passed"
+}

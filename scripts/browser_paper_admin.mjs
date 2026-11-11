@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict'
+import {chromium} from 'playwright-core'
+const [executablePath,web,admin,output]=process.argv.slice(2)
+const browser=await chromium.launch({executablePath,headless:true})
+try {
+ const context=await browser.newContext(),page=await context.newPage()
+ await page.goto(web)
+ await page.getByLabel(/^目录/).selectOption({index:1});await page.getByLabel(/^主题/).selectOption({index:1})
+ await page.getByRole('checkbox').first().check();await page.getByRole('button',{name:'查看可用题量'}).click()
+ await page.getByRole('button',{name:'生成练习',exact:true}).click()
+ await page.getByRole('button',{name:'打开练习',exact:true}).click({timeout:90000})
+ const preview=page.getByRole('region',{name:'试卷预览'})
+ const link=await preview.getByRole('link',{name:'下载PDF',exact:true}).first().getAttribute('href')
+ const before=(await(await context.request.get(web+'/api/v1/session')).json()).data.next_generation_at
+ const manager=await context.newPage();await manager.goto(admin)
+ await manager.getByLabel('用户名',{exact:true}).fill('owner');await manager.getByLabel('密码',{exact:true}).fill('test-only-admin-password')
+ await manager.getByRole('button',{name:'登录',exact:true}).click()
+ await manager.getByRole('button',{name:'试卷排查与勘误',exact:true}).click()
+ await manager.getByRole('button',{name:'排查此卷',exact:true}).first().click()
+ const detail=manager.getByRole('region',{name:'试卷排查详情',exact:true})
+ for(const [action,message] of [['notice','浏览器测试勘误说明'],['withdraw','浏览器测试撤下说明']]) {
+   await detail.getByLabel('处理方式',{exact:true}).selectOption(action)
+   await detail.getByLabel('用户可见说明',{exact:true}).fill(message)
+   await detail.getByLabel('操作理由',{exact:true}).fill('隔离浏览器验收')
+   const response=manager.waitForResponse(r=>r.url().endsWith('/notices')&&r.request().method()==='POST')
+   await detail.getByRole('button',{name:'保存试卷说明',exact:true}).click()
+   assert.equal((await response).status(),200)
+   await detail.getByText((action==='withdraw'?'撤下':'说明')+'：'+message,{exact:false}).waitFor()
+ }
+ await page.goto(web+'/#/records')
+ await page.getByRole('button',{name:'查看练习',exact:true}).first().click()
+ await page.getByText('此练习已撤下，不能下载或打印。请查看下方说明。',{exact:true}).waitFor()
+ assert.equal(await page.getByRole('link',{name:'下载PDF',exact:true}).count(),0)
+ assert.match(await page.locator('main').innerText(),/浏览器测试撤下说明/)
+ assert.equal((await context.request.get(web+link)).status(),404)
+ assert.equal((await(await context.request.get(web+'/api/v1/session')).json()).data.next_generation_at,before)
+ await manager.screenshot({path:output+'/paper-admin.png',fullPage:true})
+ await page.screenshot({path:output+'/withdrawn-history.png',fullPage:true})
+ console.log(JSON.stringify({status:'paper_notices_browser_passed',immutable:true,withdrawal_enforced:true}))
+} finally {await browser.close()}
